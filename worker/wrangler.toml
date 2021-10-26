@@ -1,8 +1,11 @@
 name = "worker"
-type = "webpack"
-route = ''
-zone_id = ''
-usage_model = ''
-compatibility_flags = []
+type = "javascript"
+
+account_id = "bc9e7b5d24c1c99e2827cb31f64779fa"
+compatibility_date = "2021-10-22"
+kv_namespaces = [
+  {binding = "memos", id = "5f916369cbc54961b4e0dca39d01be23", preview_id = "5f916369cbc54961b4e0dca39d01be23"},
+]
+route = ""
 workers_dev = true
-compatibility_date = "2021-10-21"
+zone_id = ""
