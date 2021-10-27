@@ -1,19 +1,24 @@
+const CORS_HEADERS = {
+  'access-control-allow-origin': 'https://noice-memos.pages.dev',
+  // 'access-control-allow-origin': 'http://localhost:5000',
+  'access-control-allow-headers': 'content-type',
+  'access-control-allow-methods': '*',
+}
+
 addEventListener('fetch', event => {
   if (event.request.method === 'OPTIONS') {
     event.respondWith(
       new Response(null, {
-        headers: {
-          'access-control-allow-origin': event.request.headers.get('Origin'),
-          'access-control-allow-headers': 'content-type',
-        },
+        headers: CORS_HEADERS,
       }),
     )
-  } else if (event.request.method === 'POST') {
-    event.respondWith(handlePost(event.request))
   } else if (event.request.method === 'GET') {
     event.respondWith(handleGet(event.request))
+  } else if (event.request.method === 'PUT') {
+    event.respondWith(handlePut(event.request))
   }
 })
+
 /**
  * @param {Request} request
  */
@@ -21,25 +26,20 @@ async function handleGet(request) {
   const ip = request.headers.get('cf-connecting-ip')
   const ipMemos = await memos.get(ip)
   return new Response(ipMemos, {
-    headers: {
-      'access-control-allow-origin': '*',
-    },
+    headers: CORS_HEADERS,
   })
 }
 
 /**
  * @param {Request} request
  */
-async function handlePost(request) {
+async function handlePut(request) {
   const ip = request.headers.get('cf-connecting-ip')
-  const newMemo = await request.json()
+  const newMemos = await request.json()
 
-  const existing = JSON.parse(await memos.get(ip))
-  const newMemos = existing?.length > 0 ? [...existing, newMemo] : [newMemo]
   await memos.put(ip, JSON.stringify(newMemos))
 
   return new Response(JSON.stringify(newMemos), {
-    status: 200,
-    headers: { 'access-control-allow-origin': '*' },
+    headers: CORS_HEADERS,
   })
 }
