@@ -36,7 +36,7 @@
       clearTimeout(timeout)
     }
 
-    const res = await fetch('http://localhost:8787')
+    const res = await fetch('https://noice-memos.austin-crim.workers.dev')
 
     if (res.ok) {
       initialFetchCompleted = true
@@ -62,7 +62,7 @@
 
   $: {
     if (initialFetchCompleted) {
-      fetch('http://localhost:8787', {
+      fetch('https://noice-memos.austin-crim.workers.dev', {
         method: 'PUT',
         body: JSON.stringify(memos)
       }).then((res) => {
