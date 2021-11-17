@@ -15,12 +15,9 @@
 
 export const onRequestGet = async ({ request, env }) => {
   const ip = request.headers.get('cf-connecting-ip')
-  console.log(env)
   try {
     const ipMemos = await env.memos.get(ip)
-    return new Response(JSON.stringify(ipMemos), {
-      headers: { 'content-type': 'application/json' }
-    })
+    return new Response(ipMemos)
   } catch (e) {
     // console.error(e)
     return new Response(JSON.stringify(e))
