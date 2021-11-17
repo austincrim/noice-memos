@@ -19,21 +19,23 @@
 //   }
 // })
 
-export async function onRequestGet({ request }) {
+export const onRequestGet = async ({ request, env }) => {
   const ip = request.headers.get('cf-connecting-ip')
-  const ipMemos = await memos.get(ip)
-  return new Response(ipMemos, {
-    headers: CORS_HEADERS
+  const ipMemos = await env.memos.get(ip)
+  return new Response(JSON.stringify(ipMemos), {
+    headers: { 'content-type': 'application/json' }
   })
 }
 
-export async function onRequestPut({ request }) {
+export async function onRequestPut({ request, env }) {
   const ip = request.headers.get('cf-connecting-ip')
   const newMemos = await request.json()
 
-  await memos.put(ip, JSON.stringify(newMemos))
+  await env.memos.put(ip, JSON.stringify(newMemos))
 
   return new Response(JSON.stringify(newMemos), {
-    headers: CORS_HEADERS
+    headers: {
+      'content-type': 'application/json'
+    }
   })
 }
