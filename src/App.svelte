@@ -13,8 +13,8 @@
     initialFetchCompleted = false
 
   onMount(async () => {
-    console.log();
     recorder = await init()
+
     let timeout
     recorder.onstart = (e) => {
       timeout = setTimeout(() => {
@@ -22,6 +22,7 @@
         isRecording = false
       }, 5000)
     }
+
     recorder.ondataavailable = (e) => {
       chunks.push(e.data)
     }
@@ -36,7 +37,7 @@
       clearTimeout(timeout)
     }
 
-    const res = await fetch('https://noice-memos.austin-crim.workers.dev')
+    const res = await fetch('/memos')
 
     if (res.ok) {
       initialFetchCompleted = true
@@ -62,7 +63,7 @@
 
   $: {
     if (initialFetchCompleted) {
-      fetch('https://noice-memos.austin-crim.workers.dev', {
+      fetch('/memos', {
         method: 'PUT',
         body: JSON.stringify(memos)
       }).then((res) => {
