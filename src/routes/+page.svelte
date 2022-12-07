@@ -79,7 +79,12 @@
   <h1>Noice Memos</h1>
   <form class="new-recording">
     <label for="title"> Title </label>
-    <input disabled={isRecording} id="title" type="text" bind:value={newTitle} />
+    <input
+      disabled={isRecording}
+      id="title"
+      type="text"
+      bind:value={newTitle}
+    />
     <button
       id="record-btn"
       disabled={newTitle.length === 0}
