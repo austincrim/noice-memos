@@ -6,7 +6,7 @@ declare namespace App {
   // interface PageData {}
   interface Platform {
     env: {
-      memos: KVNamespace
+      memos_bucket: R2Bucket
     }
   }
 }

@@ -1,0 +1,5 @@
+compatibility_date = "2022-12-07"
+name = "noice-memos"
+r2_buckets = [
+  {binding = "memos_bucket", bucket_name = "memos", preview_bucket_name = "memos-preview"},
+]

@@ -3,14 +3,16 @@
   import { slide } from 'svelte/transition'
   import { init } from './init'
 
+  /** @type {import('./$types').PageData} */
+  export let data
+
   let audioEl,
     isRecording = false,
     recorder,
     chunks = [],
     memos = [],
     newTitle = '',
-    tempTitle = '',
-    initialFetchCompleted = false
+    tempTitle = ''
 
   onMount(async () => {
     recorder = await init()
@@ -18,7 +20,9 @@
     let timeout
     recorder.onstart = (e) => {
       timeout = setTimeout(() => {
-        document.getElementById('record-btn').click()
+        let button = document.getElementById('record-btn')
+        if (!button) return
+        button.click()
         isRecording = false
       }, 5000)
     }
@@ -36,16 +40,6 @@
       }
       clearTimeout(timeout)
     }
-
-    const res = await fetch('/memos')
-
-    if (res.ok) {
-      initialFetchCompleted = true
-      const fetchedMemos = await res.json()
-      if (fetchedMemos && fetchedMemos.length > 0) {
-        memos = fetchedMemos
-      }
-    }
   })
 
   function record() {
@@ -58,19 +52,6 @@
       isRecording = false
       tempTitle = newTitle
       newTitle = ''
-    }
-  }
-
-  $: {
-    if (initialFetchCompleted) {
-      fetch('/memos', {
-        method: 'PUT',
-        body: JSON.stringify(memos)
-      }).then((res) => {
-        if (!res.ok) {
-          console.error(JSON.stringify(res))
-        }
-      })
     }
   }
 </script>
@@ -95,10 +76,10 @@
     </button>
   </form>
   <div class="control-area">
-    {#each memos as memo}
+    {#each data.memos.objects as memo}
       <div class="memo" transition:slide={{ duration: 200 }}>
-        <h2>{memo.title}</h2>
-        <span style="display: flex; align-items: center; gap: 1rem;">
+        <h2>{memo.key}</h2>
+        <!-- <span style="display: flex; align-items: center; gap: 1rem;">
           <audio bind:this={audioEl} src={memo.src} controls />
           <button
             style="color: crimson;"
@@ -106,7 +87,7 @@
           >
             Delete
           </button>
-        </span>
+        </span> -->
       </div>
     {/each}
   </div>
