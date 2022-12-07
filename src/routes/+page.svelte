@@ -15,6 +15,7 @@
     tempTitle = ''
 
   onMount(async () => {
+    // setup MediaRecorder
     recorder = await init()
 
     let timeout
