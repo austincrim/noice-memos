@@ -7,6 +7,9 @@ declare namespace App {
   interface Platform {
     env: {
       memos_bucket: R2Bucket
+      DB: D1Database
+      GH_CLIENT_ID: string
+      GH_CLIENT_SECRET: string
     }
   }
 }

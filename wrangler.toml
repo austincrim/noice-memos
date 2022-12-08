@@ -3,3 +3,12 @@ name = "noice-memos"
 r2_buckets = [
   {binding = "memos_bucket", bucket_name = "memos", preview_bucket_name = "memos-preview"},
 ]
+[[d1_databases]]
+binding = "DB"
+database_id = "3077831a-e709-4dac-aabf-ed71ed1945ae"
+database_name = "users"
+preview_database_id = "3077831a-e709-4dac-aabf-ed71ed1945ae"
+
+# SECRETS
+# GH_CLIENT_ID
+# GH_CLIENT_SECRET

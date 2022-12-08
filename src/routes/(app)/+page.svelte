@@ -57,8 +57,8 @@
   }
 </script>
 
+<nav>Noice Memos</nav>
 <main>
-  <h1>Noice Memos</h1>
   <form class="new-recording">
     <label for="title"> Title </label>
     <input
@@ -77,10 +77,10 @@
     </button>
   </form>
   <div class="control-area">
-    {#each data.memos.objects as memo}
+    <!-- {#each data?.memos?.objects as memo}
       <div class="memo" transition:slide={{ duration: 200 }}>
         <h2>{memo.key}</h2>
-        <!-- <span style="display: flex; align-items: center; gap: 1rem;">
+        <span style="display: flex; align-items: center; gap: 1rem;">
           <audio bind:this={audioEl} src={memo.src} controls />
           <button
             style="color: crimson;"
@@ -88,13 +88,34 @@
           >
             Delete
           </button>
-        </span> -->
+        </span>
       </div>
-    {/each}
+    {/each} -->
   </div>
 </main>
 
 <style>
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 6rem;
+    padding: 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  nav {
+    background: whitesmoke;
+    display: flex;
+    align-items: center;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
   button.isRecording {
     background-color: lightcoral;
   }
@@ -123,9 +144,5 @@
     gap: 1rem;
     width: 75%;
     margin-inline: auto;
-  }
-
-  h2 {
-    color: rgb(76, 0, 255);
   }
 </style>
