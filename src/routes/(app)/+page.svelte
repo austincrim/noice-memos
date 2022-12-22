@@ -57,7 +57,6 @@
   }
 </script>
 
-<nav>Noice Memos</nav>
 <main>
   <form class="new-recording">
     <label for="title"> Title </label>
@@ -104,16 +103,6 @@
     padding: 4rem;
     max-width: 800px;
     margin: 0 auto;
-  }
-
-  nav {
-    background: whitesmoke;
-    display: flex;
-    align-items: center;
-    padding-inline: 2rem;
-    padding-block: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
   }
 
   button.isRecording {

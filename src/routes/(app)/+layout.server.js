@@ -1,9 +1,10 @@
 import { redirect } from '@sveltejs/kit'
-import { isValidSession } from '$lib/user'
 
 /** @type {import('./$types').LayoutServerLoad} */
-export function load(event) {
-  if (!isValidSession(event.cookies)) {
+export async function load(event) {
+  let session = await event.locals.getSession()
+  if (!session || new Date(session.expires).valueOf() < new Date().valueOf()) {
     throw redirect(307, '/login')
   }
+  return { session }
 }
