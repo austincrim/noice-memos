@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@auth/core': ^0.1.4
-  '@auth/sveltekit': ^0.1.6
+  '@auth/core': 0.2.3
+  '@auth/sveltekit': 0.1.10
   '@cloudflare/workers-types': ^4.20221111.1
   '@sveltejs/adapter-cloudflare': 1.0.0
   '@sveltejs/kit': ^1.0.1
@@ -20,8 +20,8 @@ specifiers:
   wrangler: ^2.6.2
 
 dependencies:
-  '@auth/core': 0.1.4
-  '@auth/sveltekit': 0.1.6_f5fzfhbe3oooig6fzl5vkyl5v4
+  '@auth/core': 0.2.3
+  '@auth/sveltekit': 0.1.10_f5fzfhbe3oooig6fzl5vkyl5v4
 
 devDependencies:
   '@cloudflare/workers-types': 4.20221111.1
@@ -42,8 +42,8 @@ devDependencies:
 
 packages:
 
-  /@auth/core/0.1.4:
-    resolution: {integrity: sha512-RsGtCWzbimuTUfV0ODE8NDxiJ5iDJAR3Wedj5OgdyZxTlCxSirXKf7+6g+krE6gHG3PoOkkd6xN6QENk+D60xw==}
+  /@auth/core/0.2.2:
+    resolution: {integrity: sha512-hEs3no7OjbFTZjb5XjbE6hlkmYw+NVfG+MwQ3IhHTwVx8hAQ4BV704UMWiPmBVXeJrkoVrNFYlkGpEAc3pGNgg==}
     peerDependencies:
       nodemailer: 6.8.0
     peerDependenciesMeta:
@@ -58,13 +58,29 @@ packages:
       preact-render-to-string: 5.2.3_preact@10.11.3
     dev: false
 
-  /@auth/sveltekit/0.1.6_f5fzfhbe3oooig6fzl5vkyl5v4:
-    resolution: {integrity: sha512-IY9Qc2dIq6UnPLZR2pBXLVnuzcG3/ODH/fxuxajf9pq4xmrXaZvG9zRNDLiTq3EJiueiNUaD6rvqFV5BXxo76w==}
+  /@auth/core/0.2.3:
+    resolution: {integrity: sha512-GJJkCh1jmI1kJlGmVOGMHRimQbHQCCwgmZLIx0Fpod1e0g4gtk6hGL5LmKjb7rN3j3HQbxQOEg5j6jJLZ7dDJw==}
+    peerDependencies:
+      nodemailer: 6.8.0
+    peerDependenciesMeta:
+      nodemailer:
+        optional: true
+    dependencies:
+      '@panva/hkdf': 1.0.2
+      cookie: 0.5.0
+      jose: 4.11.1
+      oauth4webapi: 2.0.5
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3_preact@10.11.3
+    dev: false
+
+  /@auth/sveltekit/0.1.10_f5fzfhbe3oooig6fzl5vkyl5v4:
+    resolution: {integrity: sha512-sVuk1AE0HEpttBpInB1zVs+v8l05TlonGa+UqiWk6ZHnvc1+nlsoAm7UFqZTuq+lgVNcXm1heNiaVwBiAqlpTQ==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
       svelte: ^3.54.0
     dependencies:
-      '@auth/core': 0.1.4
+      '@auth/core': 0.2.2
       '@sveltejs/kit': 1.0.1_svelte@3.55.0+vite@4.0.3
       svelte: 3.55.0
     transitivePeerDependencies:

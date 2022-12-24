@@ -29,7 +29,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@auth/core": "^0.1.4",
-    "@auth/sveltekit": "^0.1.6"
+    "@auth/core": "0.2.3",
+    "@auth/sveltekit": "0.1.10"
   }
 }
