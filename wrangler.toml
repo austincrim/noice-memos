@@ -5,9 +5,9 @@ r2_buckets = [
 ]
 [[d1_databases]]
 binding = "DB"
-database_id = "3077831a-e709-4dac-aabf-ed71ed1945ae"
-database_name = "users"
-preview_database_id = "3077831a-e709-4dac-aabf-ed71ed1945ae"
+database_id = "016423dd-c191-4088-8f67-0aab681ebcb9"
+database_name = "noice"
+preview_database_id = "016423dd-c191-4088-8f67-0aab681ebcb9"
 
 # SECRETS
 # GH_CLIENT_ID
