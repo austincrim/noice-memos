@@ -8,8 +8,7 @@
   >
     <h1 class="text-4xl text-center">Welcome to Noice Memos!</h1>
     <button
-      on:click={() =>
-        signIn('github', { callbackUrl: 'http://localhost:8788/' })}
+      on:click={() => signIn('github')}
       class="px-2 py-4 border border-black rounded-md"
     >
       Login with GitHub
