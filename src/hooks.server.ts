@@ -5,7 +5,7 @@ import { GH_CLIENT_ID, GH_CLIENT_SECRET } from '$env/static/private'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = ({ event, resolve }) => {
-  console.log(JSON.stringify('platform', event.platform))
+  console.log('platform', JSON.stringify(event.platform, null, 2))
   let authHandle = SvelteKitAuth({
     providers: [
       GitHub({
@@ -13,7 +13,7 @@ export const handle: Handle = ({ event, resolve }) => {
         clientSecret: GH_CLIENT_SECRET,
         userinfo: {
           url: 'https://api.github.com/user',
-          async request({ provider, tokens }) {
+          async request({ tokens }) {
             const profile = await fetch('https://api.github.com/user', {
               headers: {
                 Authorization: `Bearer ${tokens.access_token}`,
