@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "wrangler": "wrangler pages dev --live-reload .svelte-kit/cloudflare",
+    "wrangler": "wrangler pages dev --live-reload .svelte-kit/cloudflare --d1=DB --persist",
     "cf:dev": "run-p watch:build wrangler",
+    "db:reset": "wrangler d1 execute noice --file=./sql/schema.sql --local",
     "build": "vite build",
     "watch:build": "vite build -w",
     "preview": "vite preview"

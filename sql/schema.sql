@@ -1,7 +1,13 @@
+DROP TABLE IF EXISTS user;
+
+DROP TABLE IF EXISTS account;
+
+DROP TABLE IF EXISTS session;
+
 -- CreateTable
 CREATE TABLE "account" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "userId" TEXT NOT NULL,
+    "id" INTEGER PRIMARY KEY,
+    "userId" INTEGER NOT NULL,
     "type" TEXT NOT NULL,
     "provider" TEXT NOT NULL,
     "providerAccountId" TEXT NOT NULL,
@@ -17,19 +23,19 @@ CREATE TABLE "account" (
 
 -- CreateTable
 CREATE TABLE "session" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" INTEGER PRIMARY KEY,
     "sessionToken" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "expires" DATETIME NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "expires" TEXT NOT NULL,
     CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "user" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" INTEGER PRIMARY KEY,
     "name" TEXT,
     "email" TEXT,
-    "emailVerified" DATETIME,
+    "emailVerified" TEXT,
     "image" TEXT
 );
 
@@ -41,4 +47,3 @@ CREATE UNIQUE INDEX "session_sessionToken_key" ON "session"("sessionToken");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
-

@@ -1,11 +1,10 @@
+import type { Handle } from '@sveltejs/kit'
 import { SvelteKitAuth } from '@auth/sveltekit'
 import GitHub from '@auth/core/providers/github'
 import D1Adapter from '$lib/adapter'
 import { GH_CLIENT_ID, GH_CLIENT_SECRET } from '$env/static/private'
-import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = ({ event, resolve }) => {
-  console.log('platform', JSON.stringify(event.platform, null, 2))
   let authHandle = SvelteKitAuth({
     providers: [
       GitHub({
@@ -25,7 +24,7 @@ export const handle: Handle = ({ event, resolve }) => {
         }
       })
     ],
-    adapter: D1Adapter(event.platform.env.__D1_BETA__DB),
+    adapter: D1Adapter(event.platform.env.DB),
     trustHost: true
   })
 
