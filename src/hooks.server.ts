@@ -5,6 +5,7 @@ import { GH_CLIENT_ID, GH_CLIENT_SECRET } from '$env/static/private'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = ({ event, resolve }) => {
+  console.log(JSON.stringify('platform', event.platform))
   let authHandle = SvelteKitAuth({
     providers: [
       GitHub({
