@@ -12,5 +12,7 @@ export const handle: Handle = ({ event, resolve }) => {
     adapter: D1Adapter(event.platform.env.DB),
     trustHost: true
   })
-  return authHandle({ event, resolve })
+  let response = authHandle({ event, resolve })
+  console.log(JSON.stringify(response, null, 2))
+  return response
 }
