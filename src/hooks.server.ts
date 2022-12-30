@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit'
+import { dev } from '$app/environment'
 import { SvelteKitAuth } from '@auth/sveltekit'
 import GitHub from '@auth/core/providers/github'
 import D1Adapter from '$lib/adapter'
@@ -24,9 +25,9 @@ export const handle: Handle = ({ event, resolve }) => {
         }
       })
     ],
-    adapter: D1Adapter(event.platform.env.DB),
+    adapter: D1Adapter(event.platform.env.__D1_BETA__DB),
     trustHost: true
   })
-
+  console.log(import.meta.env)
   return authHandle({ event, resolve })
 }
