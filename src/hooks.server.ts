@@ -28,6 +28,6 @@ export const handle: Handle = ({ event, resolve }) => {
     adapter: D1Adapter(event.platform.env.__D1_BETA__DB),
     trustHost: true
   })
-  console.log(import.meta.env)
+  console.log(event.platform.env)
   return authHandle({ event, resolve })
 }
