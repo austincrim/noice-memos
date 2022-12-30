@@ -25,7 +25,7 @@ export const handle: Handle = ({ event, resolve }) => {
         }
       })
     ],
-    adapter: D1Adapter(event.platform.env.__D1_BETA__DB),
+    adapter: D1Adapter(event.platform.env.DB),
     trustHost: true
   })
   console.log(event.platform.env)
