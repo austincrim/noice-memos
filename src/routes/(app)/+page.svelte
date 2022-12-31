@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte'
-  import { slide } from 'svelte/transition'
   import { init } from './init'
 
   /** @type {import('./$types').PageData} */
@@ -131,7 +130,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 75%;
+    width: 50%;
     margin-inline: auto;
   }
 </style>
