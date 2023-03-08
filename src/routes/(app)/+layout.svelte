@@ -3,7 +3,7 @@
   import { signOut } from '@auth/sveltekit/client'
 </script>
 
-<nav>
+<nav class="shadow">
   <span>Noice Memos</span>
   <div>
     <img
@@ -18,7 +18,6 @@
 
 <style>
   nav {
-    background: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: space-between;

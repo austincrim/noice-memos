@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
+  import { slide } from 'svelte/transition'
+  import { invalidate } from '$app/navigation'
+  import type { PageData } from './$types'
   import { init } from './init'
+  import { enhance } from '$app/forms'
 
-  /** @type {import('./$types').PageData} */
-  export let data
+  export let data: PageData
 
-  let audioEl,
-    isRecording = false,
-    recorder,
-    chunks = [],
-    memos = [],
+  let isRecording = false,
+    recorder: MediaRecorder,
+    chunks: Blob[] = [],
     newTitle = '',
     tempTitle = ''
 
@@ -36,7 +37,12 @@
       let blob = new Blob(chunks, { type: 'audio/mp3' })
       reader.readAsDataURL(blob)
       reader.onloadend = async () => {
-        memos = [...memos, { src: reader.result, title: tempTitle }]
+        let res = await fetch('/memo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ src: reader.result, title: tempTitle })
+        })
+        if (res.ok) invalidate('memos:load')
       }
       clearTimeout(timeout)
     }
@@ -58,11 +64,12 @@
 
 <main>
   <form class="new-recording">
-    <label for="title"> Title </label>
+    <label class="font-semibold" for="title"> Title </label>
     <input
-      disabled={isRecording}
       id="title"
       type="text"
+      disabled={isRecording}
+      class="p-2"
       bind:value={newTitle}
     />
     <button
@@ -75,20 +82,18 @@
     </button>
   </form>
   <div class="control-area">
-    <!-- {#each data?.memos?.objects as memo}
+    {#each data?.memos as memo}
       <div class="memo" transition:slide={{ duration: 200 }}>
-        <h2>{memo.key}</h2>
+        <h2>{memo.title}</h2>
         <span style="display: flex; align-items: center; gap: 1rem;">
-          <audio bind:this={audioEl} src={memo.src} controls />
-          <button
-            style="color: crimson;"
-            on:click={() => (memos = memos.filter((m) => memo.src !== m.src))}
-          >
-            Delete
-          </button>
+          <audio src={memo.src} controls />
+          <form use:enhance action="?/delete" method="POST">
+            <button class="text-red-500"> Delete </button>
+            <input name="key" type="hidden" value={memo.r2Key} />
+          </form>
         </span>
       </div>
-    {/each} -->
+    {/each}
   </div>
 </main>
 

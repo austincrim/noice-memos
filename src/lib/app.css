@@ -1,4 +1,30 @@
-/* Write your global styles here, in PostCSS syntax */
 @tailwind base;
 @tailwind components;
+
+button {
+  border: 1px solid currentColor;
+  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  background-color: white;
+  transition: background-color 0.1s ease-out;
+}
+
+button:hover:not(:disabled) {
+  background-color: theme('colors.gray.100');
+}
+
+input {
+  background-color: hsl(0 0% 97%);
+  border: 1px solid #333;
+  border-radius: 7px;
+  font-size: 1.3rem;
+  padding: 0.5rem 1rem;
+
+  transition: background-color 0.1s ease-out;
+}
+
+input:hover {
+  background-color: hsl(0 0% 95%);
+}
+
 @tailwind utilities;
