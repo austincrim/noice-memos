@@ -3,13 +3,13 @@ import type { Adapter } from '@auth/core/adapters'
 export default function D1Adapter(d1: D1Database, options = {}): Adapter {
   return {
     async createUser({ email, emailVerified, image, name }) {
-      console.log('createUser()')
+      console.log('createUser()', arguments)
       try {
         let result = await d1
           .prepare(
-            'insert into user (email, emailVerified, image, name) values (?1, ?2, ?3, ?4) returning *;'
+            'insert into user (email, emailVerified, image, name) values (?, ?, ?, ?) returning *;'
           )
-          .bind(email, emailVerified?.toISOString(), image, name)
+          .bind(email, emailVerified?.toISOString() ?? '', image, name)
           .first()
         console.log('created user', result)
         return result
@@ -40,13 +40,13 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       try {
         const result = await d1
           .prepare(
-            'select userId from account where providerAccountId = ?1 and provider = ?2;'
+            'select userId from account where providerAccountId = ? and provider = ?;'
           )
           .bind(providerAccountId, provider)
           .first()
-        if (result.userId) {
+        if (result?.userId) {
           return await d1
-            .prepare('select * from user where id = ?1')
+            .prepare('select * from user where id = ?;')
             .bind(result.userId)
             .first()
         } else {
@@ -70,7 +70,7 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       try {
         let result = await d1
           .prepare(
-            'insert into account (provider, providerAccountId, type, userId, access_token, expires_at, id_token, refresh_token, scope, token_type) values (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10) returning *;'
+            'insert into account (provider, providerAccountId, type, userId, access_token, expires_at, id_token, refresh_token, scope, token_type) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning *;'
           )
           .bind(
             account.provider,
@@ -78,11 +78,11 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
             account.type,
             account.userId,
             account.access_token,
-            account.expires_in,
-            account.id_token,
-            account.refresh_token,
-            account.scope,
-            account.token_type
+            account.expires_in ?? null,
+            account.id_token ?? null,
+            account.refresh_token ?? null,
+            account.scope ?? null,
+            account.token_type ?? null
           )
           .first()
         console.log('created account', result)
@@ -96,11 +96,11 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async createSession({ sessionToken, userId, expires }) {
-      console.log('createSession()')
+      console.log('createSession()', { sessionToken, userId, expires })
       try {
         let result = await d1
           .prepare(
-            'insert into session (sessionToken, userId, expires) values (?1, ?2, ?3) returning *;'
+            'insert into session (sessionToken, userId, expires) values (?, ?, ?) returning *;'
           )
           .bind(sessionToken, userId, expires.toISOString())
           .first()

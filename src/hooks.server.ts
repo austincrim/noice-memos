@@ -14,21 +14,9 @@ export const handle: Handle = ({ event, resolve }) => {
       GitHub({
         clientId: GH_CLIENT_ID,
         clientSecret: GH_CLIENT_SECRET
-        // userinfo: {
-        //   url: 'https://api.github.com/user',
-        //   async request({ tokens }) {
-        //     const profile = await fetch('https://api.github.com/user', {
-        //       headers: {
-        //         Authorization: `Bearer ${tokens.access_token}`,
-        //         'User-Agent': 'my-fun-worker'
-        //       }
-        //     }).then(async (res) => await res.json())
-        //     return profile
-        //   }
-        // }
       })
     ],
-    adapter: D1Adapter(event.platform.env.DB),
+    adapter: D1Adapter(event.platform?.env.DB),
     trustHost: true,
     secret: AUTH_SECRET
   })
