@@ -2,17 +2,14 @@
   import { onMount } from 'svelte'
   import { slide } from 'svelte/transition'
   import { invalidate } from '$app/navigation'
-  import type { PageData } from './$types'
   import { init } from './init'
   import { enhance } from '$app/forms'
 
-  export let data: PageData
+  export let data
 
   let isRecording = false,
     recorder: MediaRecorder,
-    chunks: Blob[] = [],
-    newTitle = '',
-    tempTitle = ''
+    chunks: Blob[] = []
 
   onMount(async () => {
     // setup MediaRecorder
@@ -42,42 +39,40 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ src: reader.result, title: tempTitle })
         })
+        tempTitle = ''
         if (res.ok) invalidate('memos:load')
       }
       clearTimeout(timeout)
     }
   })
 
-  function record() {
+  let tempTitle = ''
+  function record(e) {
     if (!isRecording) {
+      tempTitle = e.target.title.value
       chunks = []
       recorder.start()
       isRecording = true
     } else {
       recorder.stop()
       isRecording = false
-      tempTitle = newTitle
-      newTitle = ''
+      e.target.reset()
     }
   }
 </script>
 
 <main>
-  <form class="new-recording">
+  <form on:submit|preventDefault={record} class="new-recording">
     <label class="font-semibold" for="title"> Title </label>
     <input
       id="title"
+      name="title"
       type="text"
       disabled={isRecording}
       class="p-2"
-      bind:value={newTitle}
+      required
     />
-    <button
-      id="record-btn"
-      disabled={newTitle.length === 0}
-      class:isRecording
-      on:click|preventDefault={record}
-    >
+    <button id="record-btn" class:isRecording>
       {isRecording ? 'Stop' : 'Record'}
     </button>
   </form>
@@ -85,7 +80,7 @@
     {#each data?.memos as memo}
       <div class="memo" transition:slide={{ duration: 200 }}>
         <h2>{memo.title}</h2>
-        <span style="display: flex; align-items: center; gap: 1rem;">
+        <span class="flex items-center gap-4">
           <audio src={memo.src} controls />
           <form use:enhance action="?/delete" method="POST">
             <button class="text-red-500"> Delete </button>
@@ -110,11 +105,11 @@
   }
 
   button.isRecording {
-    background-color: lightcoral;
+    background-color: theme('colors.red.400');
   }
 
   button.isRecording:hover {
-    background-color: rgb(202, 109, 109);
+    background-color: theme('colors.red.300');
   }
 
   .memo {

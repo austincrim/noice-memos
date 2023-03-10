@@ -15,10 +15,10 @@ export async function POST(event: RequestEvent) {
   if (!body.success) {
     throw error(400, 'must pass required params')
   }
-  let result = await event.platform?.env.memos_bucket.put(
-    `${session.id}:${body.data.title}`,
-    JSON.stringify(body.data)
-  )
+
+  let newKey = `${session.id}:${crypto.randomUUID()}`
+
+  await event.platform?.env.memos_bucket.put(newKey, JSON.stringify(body.data))
 
   return new Response(null, { status: 201 })
 }
