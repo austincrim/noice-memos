@@ -13,8 +13,7 @@ export const handle: Handle = ({ event, resolve }) => {
     providers: [
       GitHub({
         clientId: GH_CLIENT_ID,
-        clientSecret: GH_CLIENT_SECRET,
-        checks: ['none']
+        clientSecret: GH_CLIENT_SECRET
       })
     ],
     adapter: D1Adapter(event.platform?.env.DB),

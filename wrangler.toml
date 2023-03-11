@@ -12,3 +12,5 @@ preview_database_id = "016423dd-c191-4088-8f67-0aab681ebcb9"
 # SECRETS
 # GH_CLIENT_ID
 # GH_CLIENT_SECRET
+# AUTH_SECRET
+# TRUST_HOST

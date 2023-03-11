@@ -1,8 +1,8 @@
 .DS_Store
 /node_modules
 /build
-/.svelte-kit
-/.wrangler
+.svelte-kit
+.wrangler
 /package
 .env
 .env.*

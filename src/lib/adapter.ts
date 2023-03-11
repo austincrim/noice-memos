@@ -133,8 +133,22 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       }
       return
     },
-    async updateSession({ sessionToken, expires, userId }) {
+    async updateSession({ sessionToken, expires }) {
       console.log('updateSession()')
+      try {
+        let session = await d1
+          .prepare(
+            'update session (expires, sessionToken) values (?, ?) where sessionToken = ? returning *;'
+          )
+          .bind(expires, sessionToken, sessionToken)
+          .first()
+        return {
+          ...session,
+          expire: new Date(session.expires)
+        }
+      } catch (e) {
+        console.log(e)
+      }
       return
     },
     async deleteSession(sessionToken) {
