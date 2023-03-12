@@ -1,5 +1,7 @@
 <script>
   import { signIn } from '@auth/sveltekit/client'
+
+  let signingIn = null
 </script>
 
 <main class="w-full h-full flex justify-center items-center">
@@ -8,10 +10,15 @@
   >
     <h1 class="text-4xl">Welcome to Noice Memos!</h1>
     <button
-      on:click={() => signIn('github')}
+      on:click={() => (signingIn = signIn('github'))}
+      disabled={signingIn}
       class="p-3 border border-black rounded-md"
     >
-      Login with GitHub
+      {#if !signingIn}
+        Login with GitHub
+      {:else}
+        <span>Authenticating...</span>
+      {/if}
     </button>
   </div>
 </main>

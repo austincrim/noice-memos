@@ -3,7 +3,6 @@ import type { Adapter } from '@auth/core/adapters'
 export default function D1Adapter(d1: D1Database, options = {}): Adapter {
   return {
     async createUser({ email, emailVerified, image, name }) {
-      console.log('createUser()', arguments)
       try {
         let result = await d1
           .prepare(
@@ -22,21 +21,18 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async getUser(id) {
-      console.log('getUser()')
       return await d1
         .prepare('select * from user where id = ?;')
         .bind(id)
         .first()
     },
     async getUserByEmail(email) {
-      console.log('getUserByEmail()')
       return await d1
         .prepare('select * from user where email = ?;')
         .bind(email)
         .first()
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      console.log('getUserByAccount()')
       try {
         const result = await d1
           .prepare(
@@ -58,15 +54,12 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async updateUser(user) {
-      console.log('updateUser()')
       return
     },
     async deleteUser(userId) {
-      console.log('deleteUser()')
       return
     },
     async linkAccount(account) {
-      console.log('linkAccount()', account)
       try {
         let result = await d1
           .prepare(
@@ -96,7 +89,6 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async createSession({ sessionToken, userId, expires }) {
-      console.log('createSession()', { sessionToken, userId, expires })
       try {
         let result = await d1
           .prepare(
@@ -112,7 +104,6 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async getSessionAndUser(sessionToken) {
-      console.log('getSessionAndUser()')
       try {
         let session = await d1
           .prepare('select * from session where sessionToken = ?;')
@@ -134,7 +125,6 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async updateSession({ sessionToken, expires }) {
-      console.log('updateSession()')
       try {
         let session = await d1
           .prepare(
@@ -152,7 +142,6 @@ export default function D1Adapter(d1: D1Database, options = {}): Adapter {
       return
     },
     async deleteSession(sessionToken) {
-      console.log('deleteSession()')
       try {
         return d1
           .prepare('delete from session where sessionToken = ? returning *;')

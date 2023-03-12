@@ -7,11 +7,7 @@ const config = {
     adapter: adapter()
   },
 
-  preprocess: [
-    vitePreprocess({
-      postcss: true
-    })
-  ]
+  preprocess: [vitePreprocess()]
 }
 
 export default config
